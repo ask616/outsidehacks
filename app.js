@@ -4,15 +4,9 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require("passport");
 var flash = require("connect-flash");
 var session = require("express-session");
 
-
-//connect to db
-
-
-require("./config/passport.js")(passport);    //run config on passport
 
 
 var app = express();
@@ -27,15 +21,12 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 
-//setting up session system
-app.use(session({secret: "outsidehacks"}));
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(flash());
 
 
 //routing
-require('./routes/index.js')(app,passport);
+require('./routes/index.js')(app);
 
 
 
